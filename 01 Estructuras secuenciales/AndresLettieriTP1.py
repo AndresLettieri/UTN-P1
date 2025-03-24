@@ -27,7 +27,7 @@ radio = float(input("Ingrese el radio de un circulo:" ))
 area = math.pi * radio ** 2
 perimetro = 2 * math.pi * radio
 
-print(f"El area del circulo es {area} y su perimetro es {perimetro}")
+print(f"El area del circulo es {area} y su perimetro es {perimetro}") 
 
 #Crear un programa que pida al usuario una cantidad de segundos e imprima por pantalla a cuántas horas equivale
 
