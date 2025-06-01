@@ -2,6 +2,10 @@
 import random
 import time
 
+# Arrays para almacenar los resultados de las conversiones
+resultados_for = []
+resultados_recursivo = []
+
 # Esta función genera una lista de cadenas binarias aleatorias de longitud fija
 # param cantidad: Cantidad de números binarios a generar
 # return: Lista de cadenas binarias de 32 bits
@@ -33,6 +37,8 @@ def binario_a_decimal_for(binarios):
             potencia = len(b) - 1 - i
             # Acumulo el valor en decimal
             decimal += bit * (2 ** potencia)
+        # Almaceno el resultado en la lista de resultados
+        resultados_for.append(decimal)
     # Fin tiempo de conversión
     fin = time.time()
 
@@ -56,7 +62,8 @@ def binario_a_decimal_recursivo(binario):
 def convertir_recursivo(binarios):
     inicio = time.time()
     for b in binarios:
-        binario_a_decimal_recursivo(b)
+        # Llamo a la función recursiva para convertir cada binario y almaceno el resultado en la lista de resultados
+        resultados_recursivo.append(binario_a_decimal_recursivo(b))
     fin = time.time()
     return fin - inicio
 
@@ -64,7 +71,7 @@ def main():
     # Definimos las cantidades de binarios a generar
     cantidades = [10000, 30000, 50000, 100000, 250000, 500000, 1000000]
     #cantidades = [1000000,2000000,3000000,4000000,5000000]
-
+    
     print("Iniciando comparación. Esto puede tardar unos minutos...")
 
     # Iteramos sobre las cantidades de binarios
@@ -87,5 +94,18 @@ def main():
         # Imprimir resultados por cada cantidad
         print(f"{cantidad} elementos - Iterativo: {tiempo_for:.8f}s - Recursivo: {'ERROR' if tiempo_rec is None else f'{tiempo_rec:.8f}s'}")
         
+        # Ahora comparamos los resultados
+        errores = []
+        for i in range(len(binarios)):
+            if resultados_for[i] != resultados_recursivo[i]:
+                errores.append((binarios[i], resultados_for[i], resultados_recursivo[i]))
+
+        # Mostrar resultados incorrectos
+        if errores:
+            print("Diferencias encontradas entre métodos:")
+            for b, f, r in errores:
+                print(f"Binario: {b} → for: {f} | recursivo: {r}")
+        else:
+            print("Todos los resultados coinciden entre los dos algoritmos.")
 
 main()
