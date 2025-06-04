@@ -69,7 +69,7 @@ def convertir_recursivo(binarios):
 
 def main():
     # Definimos las cantidades de binarios a generar
-    cantidades = [10000, 30000, 50000, 100000, 250000, 500000, 1000000]
+    cantidades = [10000, 30000, 50000, 100000, 250000]
     #cantidades = [1000000,2000000,3000000,4000000,5000000]
     
     print("Iniciando comparación. Esto puede tardar unos minutos...")
@@ -85,14 +85,10 @@ def main():
         tiempo_for = binario_a_decimal_for(binarios)
         
         # Tiempo con recursividad
-        # Se instancia en un try para manejar la posibilidad de exceder el limite de recursión
-        try:
-            tiempo_rec = convertir_recursivo(binarios)
-        except RecursionError:
-            tiempo_rec = None  
+        tiempo_rec = convertir_recursivo(binarios)
         
         # Imprimir resultados por cada cantidad
-        print(f"{cantidad} elementos - Iterativo: {tiempo_for:.8f}s - Recursivo: {'ERROR' if tiempo_rec is None else f'{tiempo_rec:.8f}s'}")
+        print(f"{cantidad} elementos - Iterativo: {tiempo_for:.8f}s - Recursivo: {f'{tiempo_rec:.8f}s'}")
         
         # Ahora comparamos los resultados
         errores = []
